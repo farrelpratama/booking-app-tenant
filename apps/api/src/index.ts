@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import type { Tenant } from '@booking-app/types';
+import tenantRouter from './routes/tenant';
 
 dotenv.config();
 
@@ -17,20 +17,12 @@ app.use(
 
 app.use(express.json());
 
+// routes
+app.use('/tenants', tenantRouter);
+
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', message: 'Booking API is running' });
-});
-
-// Test endpoint pakai shared type
-app.get('/test-types', (req, res) => {
-    const exampleTenant: Tenant = {
-        id: '1',
-        name: 'Barbershop Budi',
-        slug: 'barbershop-budi',
-        createdAt: new Date(),
-    };
-    res.json(exampleTenant);
 });
 
 app.listen(PORT, () => {

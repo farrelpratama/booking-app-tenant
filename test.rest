@@ -1,5 +1,40 @@
-###
+### Health check
 GET http://localhost:3001/health
 
-###
-GET http://localhost:3001/test-types
+### Get all tenants
+GET http://localhost:3001/tenants
+
+### Create tenant
+POST http://localhost:3001/tenants
+Content-Type: application/json
+
+{
+  "name": "Barbershop Budi",
+  "slug": "barbershop-budi"
+}
+
+### Create tenant kedua
+POST http://localhost:3001/tenants
+Content-Type: application/json
+
+{
+  "name": "Klinik Sehat",
+  "slug": "klinik-sehat"
+}
+
+### Test duplicate slug (harusnya 409)
+POST http://localhost:3001/tenants
+Content-Type: application/json
+
+{
+  "name": "Barbershop Lain",
+  "slug": "barbershop-budi"
+}
+
+### Test missing field (harusnya 400)
+POST http://localhost:3001/tenants
+Content-Type: application/json
+
+{
+  "name": "Tanpa Slug"
+}
