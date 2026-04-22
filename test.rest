@@ -1,40 +1,30 @@
-### Health check
-GET http://localhost:3001/health
-
-### Get all tenants
-GET http://localhost:3001/tenants
-
-### Create tenant
-POST http://localhost:3001/tenants
+### Register user baru
+POST http://localhost:3001/auth/register
 Content-Type: application/json
 
 {
-  "name": "Barbershop Budi",
-  "slug": "barbershop-budi"
+  "name": "Budi Owner",
+  "email": "budi@barbershop.com",
+  "password": "password123",
+  "tenantSlug": "barbershop-budi"
 }
 
-### Create tenant kedua
-POST http://localhost:3001/tenants
+### Login
+POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-  "name": "Klinik Sehat",
-  "slug": "klinik-sehat"
+  "email": "budi@barbershop.com",
+  "password": "password123",
+  "tenantSlug": "barbershop-budi"
 }
 
-### Test duplicate slug (harusnya 409)
-POST http://localhost:3001/tenants
+### Login salah password (harusnya 401)
+POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-  "name": "Barbershop Lain",
-  "slug": "barbershop-budi"
-}
-
-### Test missing field (harusnya 400)
-POST http://localhost:3001/tenants
-Content-Type: application/json
-
-{
-  "name": "Tanpa Slug"
+  "email": "budi@barbershop.com",
+  "password": "salah",
+  "tenantSlug": "barbershop-budi"
 }

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import tenantRouter from './routes/tenant';
+import authRouter from './routes/auth';
 
 dotenv.config();
 
@@ -14,17 +15,17 @@ app.use(
         credentials: true,
     })
 );
-
 app.use(express.json());
 
-// routes
+// Routes
 app.use('/tenants', tenantRouter);
+app.use('/auth', authRouter);
 
-// Health check endpoint
+// Health check
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', message: 'Booking API is running' });
 });
 
 app.listen(PORT, () => {
-    console.log(`API server running on port :${PORT}...`);
+    console.log(`API server running on http://localhost:${PORT}`);
 });
