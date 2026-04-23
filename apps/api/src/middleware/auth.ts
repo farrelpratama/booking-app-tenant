@@ -22,13 +22,14 @@ export const authenticate = (
         return;
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1] as string;
 
     try {
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET as string
-        ) as AuthRequest['user'];
+        const secret = process.env.JWT_SECRET;
+
+        if (!secret) throw new Error('JWT_SECRET is not defined');
+
+        const decoded = jwt.verify(token, secret) as AuthRequest['user'];
 
         req.user = decoded;
         next(); // lanjut ke handler berikutnya

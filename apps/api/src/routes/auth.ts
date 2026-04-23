@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../prisma';
+import { authenticate, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
@@ -119,6 +120,31 @@ router.post('/login', async (req: Request, res: Response) => {
         });
     } catch (_error) {
         res.status(500).json({ error: `Failed to login ${_error}` });
+    }
+});
+
+// GET /auth/me - test protected route
+router.get('/me', authenticate, async (req: AuthRequest, res: Response) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user!.userId },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                tenantId: true,
+                createdAt: true,
+            },
+        });
+
+        if (!user) {
+            res.status(404).json({ error: 'User not found!' });
+            return;
+        }
+
+        res.json(user);
+    } catch (_error) {
+        res.status(500).json({ error: `Failed to fetch: ${_error}` });
     }
 });
 
