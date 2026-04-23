@@ -45,3 +45,51 @@ x-tenant-slug: barbershop-budi
 GET http://localhost:3001/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDhlMzhmNC1lMGJlLTRjMjQtOTg5ZC00OWMzMDk3MDRiODMiLCJ0ZW5hbnRJZCI6ImJlOGZlNTAxLTY5MTctNGNhYy1iZTkzLTJhMTM0MTA1NzViOCIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc3NjkxODM2MSwiZXhwIjoxNzc3NTIzMTYxfQ.-Pe5p9GgT7nv3MJk9W-7Zmqg-SN1lMKg_7zdhCMW7as
 x-tenant-slug: tenant-lain-yang-tidak-ada
+
+### Create service
+POST http://localhost:3001/services
+Authorization: Bearer YOUR_TOKEN_HERE
+x-tenant-slug: barbershop-budi
+Content-Type: application/json
+
+{
+  "name": "Potong Rambut",
+  "description": "Potong rambut reguler dengan styling",
+  "duration": 30,
+  "price": 50000,
+  "maxCapacity": 1
+}
+
+### Create service kedua
+POST http://localhost:3001/services
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDhlMzhmNC1lMGJlLTRjMjQtOTg5ZC00OWMzMDk3MDRiODMiLCJ0ZW5hbnRJZCI6ImJlOGZlNTAxLTY5MTctNGNhYy1iZTkzLTJhMTM0MTA1NzViOCIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc3NjkxODM2MSwiZXhwIjoxNzc3NTIzMTYxfQ.-Pe5p9GgT7nv3MJk9W-7Zmqg-SN1lMKg_7zdhCMW7as
+x-tenant-slug: barbershop-budi
+Content-Type: application/json
+
+{
+  "name": "Cukur + Keramas",
+  "description": "Paket lengkap cukur dan keramas",
+  "duration": 60,
+  "price": 85000,
+  "maxCapacity": 1
+}
+
+### Get all services
+GET http://localhost:3001/services
+Authorization: Bearer YOUR_TOKEN_HERE
+x-tenant-slug: barbershop-budi
+
+### Update service
+PATCH http://localhost:3001/services/SERVICE_ID_HERE
+Authorization: Bearer YOUR_TOKEN_HERE
+x-tenant-slug: barbershop-budi
+Content-Type: application/json
+
+{
+  "price": 55000
+}
+
+### Delete service (soft delete)
+DELETE http://localhost:3001/services/SERVICE_ID_HERE
+Authorization: Bearer YOUR_TOKEN_HERE
+x-tenant-slug: barbershop-budi
