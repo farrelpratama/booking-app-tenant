@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import tenantRouter from './routes/tenant';
 import authRouter from './routes/auth';
+import userRouter from './routes/users';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 // Routes
 app.use('/tenants', tenantRouter);
 app.use('/auth', authRouter);
+app.use('/users', userRouter);
 
 // Health check
 app.get('/health', (req, res) => {
